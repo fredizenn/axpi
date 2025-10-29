@@ -111,7 +111,7 @@
 </script>
 
 <!-- Loading state -->
-<div class="-mt-4 py-2">
+<div class="py-2">
 	<Button onclick={() => goto('/projects')} color="light" class="cursor-pointer">
 		<MoveLeft class="mr-2 h-4 w-4" />Back to projects</Button
 	>
