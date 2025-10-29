@@ -8,6 +8,7 @@
 		IdCard,
 		Briefcase,
 		Building,
+        User,
 		Loader2
 	} from '@lucide/svelte';
 
@@ -67,12 +68,7 @@
 		<!-- Profile Header -->
 		<div
 			class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-			<img
-				src={member.ImageUrl}
-				alt={member.FullName}
-				class="w-28 h-28 rounded-2xl border border-gray-200 object-cover shadow-sm"
-				on:error={(e) => (e.currentTarget.src = '/avatars/placeholder.png')}
-			/>
+			<User class="w-12 h-12 text-gray-300" />
 
 			<div class="flex-1">
 				<h2 class="text-2xl font-semibold text-gray-800">{member.FullName}</h2>

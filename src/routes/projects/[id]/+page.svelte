@@ -30,8 +30,8 @@
 			// Static project details (based on your document)
 			project = {
 				id: $page.params.id,
-				name: 'Health Information Management System (HIMS) Rollout',
-				client: 'Axon Information Systems Ltd',
+				name: 'Ghana Health Information Management System (GHIMS)',
+				client: 'Ministry of Health & Ghana Health Service',
 				mode: 'Hybrid (Virtual + Onsite)',
 				duration: 'Multi-phase Implementation',
 				start: '2025-08-01',
@@ -39,7 +39,7 @@
 				status: 'In Progress',
 				progress: 80,
 				overview:
-					'The Health Information Management System (HIMS) Implementation Project, led by Axon Information Systems Ltd in partnership with the Ministry of Health and the Ghana Health Service, aims to digitize healthcare data management nationwide. It focuses on improving accuracy, accountability, and efficiency across all public health facilities. The initiative includes system deployment, nationwide training, technical support, and performance monitoring to establish a unified and sustainable digital health infrastructure.',
+					'The Ghana Health Information Management System (HIMS) Implementation Project, led by Axon Information Systems Ltd in partnership with the Ministry of Health and the Ghana Health Service, aims to digitize healthcare data management nationwide. It focuses on improving accuracy, accountability, and efficiency across all public health facilities. The initiative includes system deployment, nationwide training, technical support, and performance monitoring to establish a unified and sustainable digital health infrastructure.',
 				objectives: [
 					'Digitize health records and reporting processes across facilities.',
 					'Build trainer capacity through the Virtual Train-the-Trainer programme.',
@@ -53,7 +53,7 @@
 					'Quiet and distraction-free training environment.',
 					'Display full name during virtual participation.'
 				],
-				logos: ['/coa.svg', '/axon_logo.png'] // optional visuals
+				logos: ['/coa.svg', '/ghs-official.avif'] // optional visuals
 			};
 		} catch (err) {
 			error = err.message;
@@ -132,14 +132,14 @@
 
 			<!-- Project meta -->
 			<div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-700">
-				<div class="flex items-center gap-2">
+				<!-- <div class="flex items-center gap-2">
 					<Calendar class="w-4 h-4 text-gray-400" />
 					<span><strong>Start:</strong> {fmt(project.start)}</span>
 				</div>
 				<div class="flex items-center gap-2">
 					<Calendar class="w-4 h-4 text-gray-400" />
 					<span><strong>End:</strong> {fmt(project.end)}</span>
-				</div>
+				</div> -->
 				<div class="flex items-center gap-2">
 					<Users class="w-4 h-4 text-gray-400" />
 					<span><strong>Members:</strong> {members.length}</span>
@@ -147,7 +147,7 @@
 			</div>
 
 			<!-- Progress -->
-			<div class="mt-6">
+			<!-- <div class="mt-6">
 				<div class="flex justify-between text-sm text-gray-600 mb-1">
 					<span>Progress</span>
 					<span>{project.progress}%</span>
@@ -158,7 +158,7 @@
 						style={`width: ${project.progress}%`}
 					></div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 		<!-- Objectives & Requirements -->
@@ -172,14 +172,14 @@
 				</ul>
 			</div>
 
-			<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+			<!-- <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 				<h2 class="mb-3 text-lg font-semibold text-gray-800">Technical Requirements</h2>
 				<ul class="list-disc space-y-2 pl-5 text-sm text-gray-600">
 					{#each project.requirements ?? [] as req}
 						<li>{req}</li>
 					{/each}
 				</ul>
-			</div>
+			</div> -->
 		</div>
 
 		<!-- Members grid -->
