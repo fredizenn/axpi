@@ -7,13 +7,20 @@
 		Calendar,
 		Users,
 		User,
-		Loader2
+		Search,
+		X,
+		Loader2,
+		MoveLeft
 	} from '@lucide/svelte';
+	import { Button } from 'flowbite-svelte';
+	import { goto } from '$app/navigation';
 
 	let project: any = null;
 	let members: any[] = [];
+	let filteredMembers: any[] = [];
 	let isLoading = true;
 	let error: string | null = null;
+	let searchQuery = '';
 
 	// Simulate async API fetching
 	async function fetchProjectData() {
@@ -26,6 +33,7 @@
 
 			const data = await res.json();
 			members = Array.isArray(data) ? data : [];
+			filteredMembers = members;
 
 			// Static project details (based on your document)
 			project = {
@@ -39,7 +47,7 @@
 				status: 'In Progress',
 				progress: 80,
 				overview:
-					'The Ghana Health Information Management System (HIMS) Implementation Project, led by Axon Information Systems Ltd in partnership with the Ministry of Health and the Ghana Health Service, aims to digitize healthcare data management nationwide. It focuses on improving accuracy, accountability, and efficiency across all public health facilities. The initiative includes system deployment, nationwide training, technical support, and performance monitoring to establish a unified and sustainable digital health infrastructure.',
+					'The Ghana Health Information Management System (GHIMS) Implementation Project, led by Axon Information Systems Ltd in partnership with the Ministry of Health and the Ghana Health Service, aims to digitize healthcare data management nationwide. It focuses on improving accuracy, accountability, and efficiency across all public health facilities. The initiative includes system deployment, nationwide training, technical support, and performance monitoring to establish a unified and sustainable digital health infrastructure.',
 				objectives: [
 					'Digitize health records and reporting processes across facilities.',
 					'Build trainer capacity through the Virtual Train-the-Trainer programme.',
@@ -53,7 +61,7 @@
 					'Quiet and distraction-free training environment.',
 					'Display full name during virtual participation.'
 				],
-				logos: ['/coa.svg', '/ghs-official.avif'] // optional visuals
+				logos: ['/coa.svg', '/ghs-official.avif']
 			};
 		} catch (err) {
 			error = err.message;
@@ -63,6 +71,18 @@
 	}
 
 	onMount(fetchProjectData);
+
+	function handleSearch() {
+		const query = searchQuery.toLowerCase().trim();
+		filteredMembers = members.filter(
+			(m) => m.FullName.toLowerCase().includes(query) || m.IdNumber.toLowerCase().includes(query)
+		);
+	}
+
+	function clearSearch() {
+		searchQuery = '';
+		filteredMembers = members;
+	}
 
 	const getStatusColor = (status: string) => {
 		switch (status) {
@@ -86,19 +106,24 @@
 					month: 'short',
 					day: 'numeric',
 					year: 'numeric'
-			  })
+				})
 			: '-';
 </script>
 
 <!-- Loading state -->
+<div class="-mt-4 py-2">
+	<Button onclick={() => goto('/projects')} color="light" class="cursor-pointer">
+		<MoveLeft class="mr-2 h-4 w-4" />Back to projects</Button
+	>
+</div>
 {#if isLoading}
-	<div class="flex flex-col items-center justify-center h-[70vh] text-gray-500">
-		<Loader2 class="w-6 h-6 animate-spin mb-2" />
+	<div class="flex h-[70vh] flex-col items-center justify-center text-gray-500">
+		<Loader2 class="mb-2 h-6 w-6 animate-spin" />
 		<p>Loading project details...</p>
 	</div>
 {:else if error}
 	<div class="p-6">
-		<p class="text-red-500 font-medium">{error}</p>
+		<p class="font-medium text-red-500">{error}</p>
 	</div>
 {:else if project}
 	<section class="space-y-6">
@@ -131,37 +156,13 @@
 			{/if}
 
 			<!-- Project meta -->
-			<div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-700">
-				<!-- <div class="flex items-center gap-2">
-					<Calendar class="w-4 h-4 text-gray-400" />
-					<span><strong>Start:</strong> {fmt(project.start)}</span>
-				</div>
-				<div class="flex items-center gap-2">
-					<Calendar class="w-4 h-4 text-gray-400" />
-					<span><strong>End:</strong> {fmt(project.end)}</span>
-				</div> -->
-				<div class="flex items-center gap-2">
-					<Users class="w-4 h-4 text-gray-400" />
-					<span><strong>Members:</strong> {members.length}</span>
-				</div>
+			<div class="mt-6 flex items-center gap-2 text-sm text-gray-700">
+				<Users class="h-4 w-4 text-gray-400" />
+				<span><strong>Members:</strong> {members.length}</span>
 			</div>
-
-			<!-- Progress -->
-			<!-- <div class="mt-6">
-				<div class="flex justify-between text-sm text-gray-600 mb-1">
-					<span>Progress</span>
-					<span>{project.progress}%</span>
-				</div>
-				<div class="w-full bg-gray-100 rounded-full h-2">
-					<div
-						class="bg-indigo-600 h-2 rounded-full transition-all duration-500"
-						style={`width: ${project.progress}%`}
-					></div>
-				</div>
-			</div> -->
 		</div>
 
-		<!-- Objectives & Requirements -->
+		<!-- Objectives -->
 		<div class="grid gap-6 sm:grid-cols-2">
 			<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 				<h2 class="mb-3 text-lg font-semibold text-gray-800">Project Objectives</h2>
@@ -171,60 +172,80 @@
 					{/each}
 				</ul>
 			</div>
-
-			<!-- <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-				<h2 class="mb-3 text-lg font-semibold text-gray-800">Technical Requirements</h2>
-				<ul class="list-disc space-y-2 pl-5 text-sm text-gray-600">
-					{#each project.requirements ?? [] as req}
-						<li>{req}</li>
-					{/each}
-				</ul>
-			</div> -->
 		</div>
 
 		<!-- Members grid -->
 		<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-			<div class="mb-4 flex items-center justify-between">
-				<h2 class="text-lg font-semibold text-gray-800">Project Members</h2>
-				<span class="text-sm text-gray-500">{members.length} total</span>
+			<div class="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<div>
+					<h2 class="text-lg font-semibold text-gray-800">Project Members</h2>
+					<span class="text-sm text-gray-500"
+						>{filteredMembers.length} result{filteredMembers.length === 1 ? '' : 's'}</span
+					>
+				</div>
+
+				<!-- Search bar -->
+				<div class="relative w-full sm:w-80">
+					<Search class="absolute top-2.5 left-3 h-4 w-4 text-gray-400" />
+					<input
+						type="text"
+						bind:value={searchQuery}
+						on:input={handleSearch}
+						placeholder="Search by name, or ID number"
+						class="w-full rounded-lg border border-gray-200 py-2 pr-10 pl-9 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+					/>
+					{#if searchQuery}
+						<button
+							on:click={clearSearch}
+							class="absolute top-2.5 right-3 text-gray-400 hover:text-gray-600"
+						>
+							<X class="h-4 w-4" />
+						</button>
+					{/if}
+				</div>
 			</div>
 
+			<!-- Members grid -->
 			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{#each members as m (m.IdNumber)}
-					<a
-						href={`/members/${m.IdNumber}`}
-						class="cursor-pointer flex flex-col rounded-2xl border border-gray-100 bg-white p-4 transition hover:shadow-md"
-					>
-						<div class="flex items-center gap-3">
-							<User class="h-12 w-12 rounded-full bg-gray-100 p-2 text-gray-400" />
-							<div>
-								<p class="font-semibold text-gray-800">{m.FullName}</p>
-								<p class="text-sm text-gray-500">{m.Designation}</p>
+				{#if filteredMembers.length > 0}
+					{#each filteredMembers as m (m.IdNumber)}
+						<a
+							href={`/members/${m.IdNumber}`}
+							class="flex cursor-pointer flex-col rounded-2xl border border-gray-100 bg-white p-4 transition hover:shadow-md"
+						>
+							<div class="flex items-center gap-3">
+								<User class="h-12 w-12 rounded-full bg-gray-100 p-2 text-gray-400" />
+								<div>
+									<p class="font-semibold text-gray-800">{m.FullName}</p>
+									<p class="text-sm text-gray-500">{m.Designation}</p>
+								</div>
 							</div>
-						</div>
 
-						<div class="mt-3 space-y-1 text-sm text-gray-600">
-							<p><strong>ID:</strong> {m.IdNumber}</p>
-							<p><strong>Dept:</strong> {m.Department}</p>
-							<p><strong>Issued:</strong> {fmt(m.DateOfIssue)}</p>
-							<p><strong>Expiry:</strong> {fmt(m.DateOfExpiry)}</p>
-						</div>
+							<div class="mt-3 space-y-1 text-sm text-gray-600">
+								<p><strong>ID:</strong> {m.IdNumber}</p>
+								<p><strong>Dept:</strong> {m.Department}</p>
+								<p><strong>Issued:</strong> {fmt(m.DateOfIssue)}</p>
+								<p><strong>Expiry:</strong> {fmt(m.DateOfExpiry)}</p>
+							</div>
 
-						<div class="mt-3">
-							<span
-								class={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${getActiveBadge(
-									m.IsActive
-								)}`}
-							>
-								{#if m.IsActive}
-									<CheckCircle class="h-4 w-4" /> Active
-								{:else}
-									<XCircle class="h-4 w-4" /> Inactive
-								{/if}
-							</span>
-						</div>
-					</a>
-				{/each}
+							<div class="mt-3">
+								<span
+									class={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${getActiveBadge(
+										m.IsActive
+									)}`}
+								>
+									{#if m.IsActive}
+										<CheckCircle class="h-4 w-4" /> Active
+									{:else}
+										<XCircle class="h-4 w-4" /> Inactive
+									{/if}
+								</span>
+							</div>
+						</a>
+					{/each}
+				{:else}
+					<p class="text-sm text-gray-500">No members found matching “{searchQuery}”.</p>
+				{/if}
 			</div>
 		</div>
 	</section>

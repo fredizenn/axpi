@@ -17,18 +17,19 @@
 </script>
 
 <header
-	class="fixed top-0 left-0 sm:left-64 w-full sm:w-[calc(100%-16rem)] bg-white border-b border-gray-100 z-40 flex justify-between items-center px-4 sm:px-6 h-16 transition-all duration-300">
+	class="fixed top-0  w-full bg-white border-b border-gray-100 z-40 flex justify-between items-center px-4 sm:px-6 transition-all duration-300">
 	
 	<div class="flex items-center gap-3">
 		<!-- Mobile Sidebar Toggle -->
-		<button
+		<!-- <button
 			class="sm:hidden p-2 rounded-md hover:bg-gray-100"
 			on:click={toggleSidebar}>
 			<Menu class="w-5 h-5 text-gray-700" />
-		</button>
+		</button> -->
 
-		<h1 class="font-semibold text-gray-800 text-lg capitalize transition-all duration-200">
-			{pageTitle}
+		<h1 class="font-semibold flex items-center space-x-2 text-gray-800 text-lg capitalize transition-all duration-200">
+			<span><img src="/axonlogo.svg" alt="Axon Logo" class="w-28 h-20 mr-2 rounded-full border-2 border-white" /></span>
+			Projects Overview Panel
 		</h1>
 	</div>
 

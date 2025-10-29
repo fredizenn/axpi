@@ -37,44 +37,12 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="flex h-screen bg-[#F4F7FB] overflow-hidden">
-	<!-- Sidebar (always wide on desktop) -->
-	<Sidebar bind:isOpen={sidebarOpen} />
+<div class="flex flex-col min-h-screen bg-gray-50">
+	<!-- Fixed Topbar -->
+	<Topbar {toggleSidebar} />
 
-	<!-- Mobile overlay -->
-	{#if sidebarOpen}
-		<div
-			class="fixed inset-0 bg-black bg-opacity-40 z-30 sm:hidden"
-			on:click={() => (sidebarOpen = false)}>
-		</div>
-	{/if}
-
-	<!-- Main area -->
-	<div class="flex w-full h-screen bg-gray-50">
-	<!-- Sidebar -->
-	<Sidebar bind:isOpen={sidebarOpen} />
-
-	<!-- Mobile overlay -->
-	{#if sidebarOpen}
-		<div
-			class="fixed inset-0 bg-black bg-opacity-40 z-30 sm:hidden"
-			on:click={() => (sidebarOpen = false)}>
-		</div>
-	{/if}
-
-	<!-- Main container -->
-	<div class="flex flex-col flex-1 sm:ml-64 h-screen overflow-hidden">
-		<Topbar on:toggleSidebar={toggleSidebar} />
-
-		<!-- Breadcrumb bar -->
-		<section
-			class="mt-16 px-4 sm:px-8 py-3 bg-white border-b border-gray-100 flex items-center justify-between flex-wrap">
-		</section>
-
-		<!-- Main scrollable area -->
-		<main class="overflow-y-auto px-4 pb-10 pt-6">
-			<slot />
-		</main>
-	</div>
-</div>
+	<!-- Main Content Area -->
+	<main class="flex-1 overflow-y-auto mt-16 px-4 sm:px-8 py-6">
+		<slot />
+	</main>
 </div>
