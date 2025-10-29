@@ -1,25 +1,78 @@
 <script lang="ts">
-	import { CheckCircle, XCircle, Calendar, User, Briefcase, Building, IdCard } from '@lucide/svelte';
-	export let data;
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import {
+		CheckCircle,
+		XCircle,
+		Calendar,
+		IdCard,
+		Briefcase,
+		Building,
+		Loader2
+	} from '@lucide/svelte';
 
-	const member = data?.member;
+	let member: any = null;
+	let isLoading = true;
+	let error: string | null = null;
+
+	// Simulate data fetching (from /data/members.json in static folder)
+	onMount(async () => {
+		try {
+			// simulate an API call delay
+			await new Promise((resolve) => setTimeout(resolve, 600));
+
+			const res = await fetch('/data/GHIMSProjectMembers.json');
+			if (!res.ok) throw new Error('Failed to load members data');
+
+			const data = await res.json();
+			const id = $page.params.id;
+
+			member = data.find((m) => m.IdNumber.toLowerCase() === id.toLowerCase());
+
+			if (!member) throw new Error('Member not found');
+		} catch (err) {
+			error = err.message;
+		} finally {
+			isLoading = false;
+		}
+	});
+
+	const fmt = (iso: string) =>
+		iso
+			? new Date(iso).toLocaleDateString('en-GB', {
+					month: 'short',
+					day: 'numeric',
+					year: 'numeric'
+			  })
+			: '-';
 
 	const getActiveBadge = (isActive: boolean) =>
 		isActive
 			? 'bg-green-100 text-green-700 border border-green-200'
 			: 'bg-gray-100 text-gray-500 border border-gray-200';
-
-	const fmt = (iso: string) =>
-		iso
-			? new Date(iso).toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' })
-			: '-';
 </script>
 
-{#if member}
-	<section class="space-y-8 mx-auto w-full">
-		<!-- Profile header -->
-		<div class="bg-white mx-auto w-full rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-			<User class="w-20 h-20 text-gray-400 rounded-full bg-gray-100 p-4" />
+<!-- Loader State -->
+{#if isLoading}
+	<div class="flex flex-col items-center justify-center h-[70vh] text-gray-500">
+		<Loader2 class="w-6 h-6 animate-spin mb-2" />
+		<p>Loading member details...</p>
+	</div>
+{:else if error}
+	<div class="p-6">
+		<p class="text-red-500 font-medium">{error}</p>
+	</div>
+{:else if member}
+	<section class="space-y-8">
+		<!-- Profile Header -->
+		<div
+			class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+			<img
+				src={member.ImageUrl}
+				alt={member.FullName}
+				class="w-28 h-28 rounded-2xl border border-gray-200 object-cover shadow-sm"
+				on:error={(e) => (e.currentTarget.src = '/avatars/placeholder.png')}
+			/>
 
 			<div class="flex-1">
 				<h2 class="text-2xl font-semibold text-gray-800">{member.FullName}</h2>
@@ -27,7 +80,10 @@
 				<p class="text-gray-400 text-sm">{member.Department}</p>
 
 				<div class="mt-4">
-					<span class={`text-xs font-medium px-3 py-1 rounded-full inline-flex items-center gap-1 ${getActiveBadge(member.IsActive)}`}>
+					<span
+						class={`text-xs font-medium px-3 py-1 rounded-full inline-flex items-center gap-1 ${getActiveBadge(
+							member.IsActive
+						)}`}>
 						{#if member.IsActive}
 							<CheckCircle class="w-3.5 h-3.5" /> Active
 						{:else}
@@ -38,7 +94,7 @@
 			</div>
 		</div>
 
-		<!-- Details grid -->
+		<!-- Details -->
 		<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 			<h3 class="text-lg font-semibold text-gray-800 mb-4">Profile Information</h3>
 
@@ -70,7 +126,7 @@
 			</div>
 		</div>
 
-		<!-- Placeholder for future sections -->
+		<!-- Placeholder for future features -->
 		<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 			<h3 class="text-lg font-semibold text-gray-800 mb-3">Assigned Projects</h3>
 			<p class="text-gray-500 text-sm">No specific projects assigned yet.</p>
