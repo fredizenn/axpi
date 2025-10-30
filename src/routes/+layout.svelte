@@ -27,9 +27,9 @@
 			href: '/' + arr.slice(0, i + 1).join('/')
 		}));
 
-		onMount(() => {
-			goto('/projects');
-		});
+		// onMount(() => {
+		// 	goto('/projects');
+		// });
 
 </script>
 
