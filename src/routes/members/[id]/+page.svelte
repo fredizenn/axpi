@@ -62,7 +62,7 @@
 
 <div class="py-2">
 	<Button onclick={goBack} color="light" class="cursor-pointer">
-		<MoveLeft class="mr-2 h-4 w-4" />Back to projects</Button
+		<MoveLeft class="mr-2 h-4 w-4" />Back</Button
 	>
 </div>{#if isLoading}
 	<div class="flex flex-col items-center justify-center h-[70vh] text-gray-500">
