@@ -9,17 +9,20 @@
 		Briefcase,
 		Building,
         User,
-		Loader2
+		Loader2,
+
+		MoveLeft
+
 	} from '@lucide/svelte';
+	import { Button } from 'flowbite-svelte';
+	import { goto } from '$app/navigation';
 
 	let member: any = null;
 	let isLoading = true;
 	let error: string | null = null;
 
-	// Simulate data fetching (from /data/members.json in static folder)
 	onMount(async () => {
 		try {
-			// simulate an API call delay
 			await new Promise((resolve) => setTimeout(resolve, 600));
 
 			const res = await fetch('/data/GHIMSProjectMembers.json');
@@ -51,10 +54,17 @@
 		isActive
 			? 'bg-green-100 text-green-700 border border-green-200'
 			: 'bg-gray-100 text-gray-500 border border-gray-200';
+
+	function goBack() {
+			history.back();
+		}
 </script>
 
-<!-- Loader State -->
-{#if isLoading}
+<div class="py-2">
+	<Button onclick={goBack} color="light" class="cursor-pointer">
+		<MoveLeft class="mr-2 h-4 w-4" />Back to projects</Button
+	>
+</div>{#if isLoading}
 	<div class="flex flex-col items-center justify-center h-[70vh] text-gray-500">
 		<Loader2 class="w-6 h-6 animate-spin mb-2" />
 		<p>Loading member details...</p>
@@ -65,7 +75,6 @@
 	</div>
 {:else if member}
 	<section class="space-y-8">
-		<!-- Profile Header -->
 		<div
 			class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
 			<User class="w-12 h-12 text-gray-300" />
@@ -90,7 +99,6 @@
 			</div>
 		</div>
 
-		<!-- Details -->
 		<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 			<h3 class="text-lg font-semibold text-gray-800 mb-4">Profile Information</h3>
 
@@ -122,7 +130,6 @@
 			</div>
 		</div>
 
-		<!-- Placeholder for future features -->
 		<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 			<h3 class="text-lg font-semibold text-gray-800 mb-3">Assigned Projects</h3>
 			<p class="text-gray-500 text-sm">No specific projects assigned yet.</p>

@@ -22,12 +22,10 @@
 	let error: string | null = null;
 	let searchQuery = '';
 
-	// Simulate async API fetching
 	async function fetchProjectData() {
 		try {
-			await new Promise((resolve) => setTimeout(resolve, 800)); // Simulate network latency
+			await new Promise((resolve) => setTimeout(resolve, 800));
 
-			// Fetch the members JSON from static directory
 			const res = await fetch('/data/GHIMSProjectMembers.json');
 			if (!res.ok) throw new Error('Failed to load members data');
 
@@ -35,7 +33,6 @@
 			members = Array.isArray(data) ? data : [];
 			filteredMembers = members;
 
-			// Static project details (based on your document)
 			project = {
 				id: $page.params.id,
 				name: 'Ghana Health Information Management System (GHIMS)',
@@ -110,7 +107,6 @@
 			: '-';
 </script>
 
-<!-- Loading state -->
 <div class="py-2">
 	<Button onclick={() => goto('/projects')} color="light" class="cursor-pointer">
 		<MoveLeft class="mr-2 h-4 w-4" />Back to projects</Button
@@ -127,7 +123,6 @@
 	</div>
 {:else if project}
 	<section class="space-y-6">
-		<!-- Header card -->
 		<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 			<div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
 				<div>
@@ -146,7 +141,6 @@
 
 			<p class="mt-4 text-sm leading-relaxed text-gray-600">{project.overview}</p>
 
-			<!-- Logos -->
 			{#if project.logos?.length}
 				<div class="mt-4 flex flex-wrap items-center gap-4">
 					{#each project.logos as logo}
@@ -155,14 +149,12 @@
 				</div>
 			{/if}
 
-			<!-- Project meta -->
 			<div class="mt-6 flex items-center gap-2 text-sm text-gray-700">
 				<Users class="h-4 w-4 text-gray-400" />
 				<span><strong>Members:</strong> {members.length}</span>
 			</div>
 		</div>
 
-		<!-- Objectives -->
 		<div class="grid gap-6 sm:grid-cols-2">
 			<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 				<h2 class="mb-3 text-lg font-semibold text-gray-800">Project Objectives</h2>
@@ -174,7 +166,6 @@
 			</div>
 		</div>
 
-		<!-- Members grid -->
 		<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 			<div class="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 				<div>
@@ -184,7 +175,6 @@
 					>
 				</div>
 
-				<!-- Search bar -->
 				<div class="relative w-full sm:w-80">
 					<Search class="absolute top-2.5 left-3 h-4 w-4 text-gray-400" />
 					<input
@@ -205,7 +195,6 @@
 				</div>
 			</div>
 
-			<!-- Members grid -->
 			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{#if filteredMembers.length > 0}
 					{#each filteredMembers as m (m.IdNumber)}

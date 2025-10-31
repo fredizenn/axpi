@@ -34,7 +34,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href='/axonlogo.svg' />
 </svelte:head>
 
 <div class="flex flex-col min-h-screen bg-gray-50">
