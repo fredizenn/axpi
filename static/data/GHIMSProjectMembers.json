@@ -52,7 +52,7 @@
   {
     "IdNumber": "AXN-00109",
     "FullName": "Yaw Boakye Boateng",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -62,7 +62,7 @@
   {
     "IdNumber": "AXN-00110",
     "FullName": "Adeola Akinfoyewa",
-    "Designation": "Project",
+    "Designation": "Project Manager",
     "Department": "Project Management",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -72,7 +72,7 @@
   {
     "IdNumber": "AXN-00111",
     "FullName": "Akosua Boatemaa",
-    "Designation": "Field Trainer",
+    "Designation": "Field Coordinator",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -82,7 +82,7 @@
   {
     "IdNumber": "AXN-00112",
     "FullName": "Lucas Elikplim Djaba",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -92,7 +92,7 @@
   {
     "IdNumber": "AXN-00113",
     "FullName": "Karim Abdulai",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -131,7 +131,7 @@
   },
   {
     "IdNumber": "AXN-00117",
-    "FullName": "Hellen Vortia",
+    "FullName": "Helen Vortia",
     "Designation": "Assistant Finance manager",
     "Department": "Finance Dept",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
@@ -142,7 +142,7 @@
   {
     "IdNumber": "AXN-00118",
     "FullName": "Klenam Dzikunu",
-    "Designation": "Project",
+    "Designation": "Project Manager",
     "Department": "Project Management",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -171,7 +171,7 @@
   },
   {
     "IdNumber": "AXN-00121",
-    "FullName": "Ernest Adjei",
+    "FullName": "Ernest Kobi Adjei",
     "Designation": "Human Resource",
     "Department": "Project, Recruitment",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
@@ -202,7 +202,7 @@
   {
     "IdNumber": "AXN-00124",
     "FullName": "Kenneth Ofori-Darkwah",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -212,7 +212,7 @@
   {
     "IdNumber": "AXN-00125",
     "FullName": "Edwin Etornam Zeye",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -222,7 +222,7 @@
   {
     "IdNumber": "AXN-00126",
     "FullName": "Selasi Kwaku Ahiaxornu",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -232,7 +232,7 @@
   {
     "IdNumber": "AXN-00127",
     "FullName": "Peter Mensah Asante",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -242,7 +242,7 @@
   {
     "IdNumber": "AXN-00128",
     "FullName": "Frank Asare",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -252,7 +252,7 @@
   {
     "IdNumber": "AXN-00129",
     "FullName": "Ebenezer Boakye",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -262,7 +262,7 @@
   {
     "IdNumber": "AXN-00130",
     "FullName": "Albert Mensah",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -272,7 +272,7 @@
   {
     "IdNumber": "AXN-00131",
     "FullName": "Michael Nokrah",
-    "Designation": "Team Lead",
+    "Designation": "Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -292,7 +292,7 @@
   {
     "IdNumber": "AXN-00133",
     "FullName": "Edward Afful",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -302,7 +302,7 @@
   {
     "IdNumber": "AXN-00134",
     "FullName": "Thomas Nii Armah Okai",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -312,7 +312,7 @@
   {
     "IdNumber": "AXN-00135",
     "FullName": "Prince Agyemang",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -322,7 +322,7 @@
   {
     "IdNumber": "AXN-00136",
     "FullName": "Daniel Pappoe",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -332,7 +332,7 @@
   {
     "IdNumber": "AXN-00137",
     "FullName": "Derrick Nii Teiko Aryee",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -342,7 +342,7 @@
   {
     "IdNumber": "AXN-00138",
     "FullName": "Inusah Mohammed Bance",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -352,7 +352,7 @@
   {
     "IdNumber": "AXN-00139",
     "FullName": "Nana Kwabena Bawuah",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -362,7 +362,7 @@
   {
     "IdNumber": "AXN-00140",
     "FullName": "Michael Avornyo",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -372,7 +372,7 @@
   {
     "IdNumber": "AXN-00141",
     "FullName": "Daniel Ogbarmey Tetteh",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -382,7 +382,7 @@
   {
     "IdNumber": "AXN-00142",
     "FullName": "Alexander Atuobi",
-    "Designation": "Assistant Team Lead",
+    "Designation": "Assistant Lead Trainer",
     "Department": "Project, Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -402,7 +402,7 @@
   {
     "IdNumber": "AXN-00144",
     "FullName": "Rhoda Kusi Appiah Pomaa",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -412,7 +412,7 @@
   {
     "IdNumber": "AXN-00145",
     "FullName": "Solomon Yaw Odame",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -422,7 +422,7 @@
   {
     "IdNumber": "AXN-00146",
     "FullName": "Lawrence Johnson",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -432,7 +432,7 @@
   {
     "IdNumber": "AXN-00147",
     "FullName": "Charlotte Morenikeji Manu",
-    "Designation": "Project Lead (Provisional)",
+    "Designation": "Lead Trainer (Provisional)",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -442,7 +442,7 @@
   {
     "IdNumber": "AXN-00148",
     "FullName": "Monica Afun",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -452,7 +452,7 @@
   {
     "IdNumber": "AXN-00149",
     "FullName": "Alfred Doudu Gaisie",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -462,7 +462,7 @@
   {
     "IdNumber": "AXN-00150",
     "FullName": "Dorothy Seyram Adede Ayiku",
-    "Designation": "Project Lead",
+    "Designation": "Lead Trainer",
     "Department": "Training & Support",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
@@ -482,8 +482,8 @@
   {
     "IdNumber": "AXN-00152",
     "FullName": "Kofi Agyemang Afriyie",
-    "Designation": "Project Lead",
-    "Department": "Quality Assurance",
+    "Designation": "Project Manager",
+    "Department": "Project, Quality Assurance",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
     "DateOfExpiry": "2026-10-30",
@@ -492,8 +492,8 @@
   {
     "IdNumber": "AXN-00153",
     "FullName": "Kenneth Appiah",
-    "Designation": "Team Lead",
-    "Department": "Project, Training & Support",
+    "Designation": "Team Lead, Apps Development",
+    "Department": "Project, Training & Support, Infrastructure",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
     "DateOfExpiry": "2026-10-30",
@@ -502,8 +502,8 @@
   {
     "IdNumber": "AXN-00154",
     "FullName": "Bashiru Jibril Madaha",
-    "Designation": "Team Lead",
-    "Department": "Project, Training & Support",
+    "Designation": "Team Lead Apps Developer",
+    "Department": "Project, Applications Development",
     "ImageUrl": "https://axpi.vercel.app/projects/1",
     "DateOfIssue": "2025-10-30",
     "DateOfExpiry": "2026-10-30",
