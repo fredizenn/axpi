@@ -4,7 +4,6 @@
 	import {
 		CheckCircle,
 		XCircle,
-		Calendar,
 		Users,
 		User,
 		Search,
@@ -14,24 +13,36 @@
 	} from '@lucide/svelte';
 	import { Button } from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
+	import { fade } from 'svelte/transition';
+	import MemberCard from '$lib/modules/members/MemberCard.svelte';
 
 	let project: any = null;
-	let members: any[] = [];
-	let filteredMembers: any[] = [];
+	let coreMembers: any[] = [];
+	let externalMembers: any[] = [];
+	let filteredCore: any[] = [];
+	let filteredExternal: any[] = [];
 	let isLoading = true;
 	let error: string | null = null;
 	let searchQuery = '';
+	let activeTab = 'core'; // or 'external'
 
 	async function fetchProjectData() {
 		try {
-			await new Promise((resolve) => setTimeout(resolve, 800));
+			await new Promise((resolve) => setTimeout(resolve, 500));
 
-			const res = await fetch('/data/GHIMSProjectMembers.json');
-			if (!res.ok) throw new Error('Failed to load members data');
+			const [coreRes, extRes] = await Promise.all([
+				fetch('/data/GHIMSProjectMembers.json'),
+				fetch('/data/GHIMSExternalMembers.json')
+			]);
 
-			const data = await res.json();
-			members = Array.isArray(data) ? data : [];
-			filteredMembers = members;
+			if (!coreRes.ok || !extRes.ok)
+				throw new Error('Failed to load one or more member datasets');
+
+			coreMembers = (await coreRes.json()) || [];
+			externalMembers = (await extRes.json()) || [];
+
+			filteredCore = coreMembers;
+			filteredExternal = externalMembers;
 
 			project = {
 				id: $page.params.id,
@@ -52,12 +63,6 @@
 					'Strengthen institutional capacity for data-driven decision-making.',
 					'Deploy standardized health information workflows nationwide.'
 				],
-				requirements: [
-					'Laptop or desktop computer with a functioning microphone.',
-					'Stable internet connection for virtual sessions.',
-					'Quiet and distraction-free training environment.',
-					'Display full name during virtual participation.'
-				],
 				logos: ['/coa.svg', '/ghs-official.avif']
 			};
 		} catch (err) {
@@ -71,14 +76,31 @@
 
 	function handleSearch() {
 		const query = searchQuery.toLowerCase().trim();
-		filteredMembers = members.filter(
-			(m) => m.FullName.toLowerCase().includes(query) || m.IdNumber.toLowerCase().includes(query)
-		);
+
+		if (activeTab === 'core') {
+			filteredCore = coreMembers.filter(
+				(m) =>
+					m.FullName.toLowerCase().includes(query) ||
+					m.IdNumber.toLowerCase().includes(query)
+			);
+		} else {
+			filteredExternal = externalMembers.filter(
+				(m) =>
+					m.FullName.toLowerCase().includes(query) ||
+					m.IdNumber.toLowerCase().includes(query)
+			);
+		}
 	}
 
 	function clearSearch() {
 		searchQuery = '';
-		filteredMembers = members;
+		filteredCore = coreMembers;
+		filteredExternal = externalMembers;
+	}
+
+	function switchTab(tab: string) {
+		activeTab = tab;
+		searchQuery = '';
 	}
 
 	const getStatusColor = (status: string) => {
@@ -109,9 +131,10 @@
 
 <div class="py-2">
 	<Button onclick={() => goto('/projects')} color="light" class="cursor-pointer">
-		<MoveLeft class="mr-2 h-4 w-4" />Back to projects</Button
-	>
+		<MoveLeft class="mr-2 h-4 w-4" />Back to projects
+	</Button>
 </div>
+
 {#if isLoading}
 	<div class="flex h-[70vh] flex-col items-center justify-center text-gray-500">
 		<Loader2 class="mb-2 h-6 w-6 animate-spin" />
@@ -123,20 +146,16 @@
 	</div>
 {:else if project}
 	<section class="space-y-6">
+		<!-- Project Overview -->
 		<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 			<div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
 				<div>
 					<h1 class="text-2xl font-semibold text-gray-800">{project.name}</h1>
 					<p class="mt-1 text-sm text-gray-500">{project.client}</p>
 				</div>
-
-				<div class="flex items-center gap-4">
-					<span
-						class={`rounded-full px-3 py-1 text-xs font-medium ${getStatusColor(project.status)}`}
-					>
-						{project.status}
-					</span>
-				</div>
+				<span class={`rounded-full px-3 py-1 text-xs font-medium ${getStatusColor(project.status)}`}>
+					{project.status}
+				</span>
 			</div>
 
 			<p class="mt-4 text-sm leading-relaxed text-gray-600">{project.overview}</p>
@@ -148,40 +167,43 @@
 					{/each}
 				</div>
 			{/if}
-
-			<div class="mt-6 flex items-center gap-2 text-sm text-gray-700">
-				<Users class="h-4 w-4 text-gray-400" />
-				<span><strong>Members:</strong> {members.length}</span>
-			</div>
 		</div>
 
-		<div class="grid gap-6 sm:grid-cols-2">
-			<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-				<h2 class="mb-3 text-lg font-semibold text-gray-800">Project Objectives</h2>
-				<ul class="list-disc space-y-2 pl-5 text-sm text-gray-600">
-					{#each project.objectives ?? [] as obj}
-						<li>{obj}</li>
-					{/each}
-				</ul>
-			</div>
-		</div>
-
+		<!-- Members Section -->
 		<div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-			<div class="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-				<div>
-					<h2 class="text-lg font-semibold text-gray-800">Project Members</h2>
-					<span class="text-sm text-gray-500"
-						>{filteredMembers.length} result{filteredMembers.length === 1 ? '' : 's'}</span
+			<!-- Tabs -->
+			<div class="flex items-center justify-between mb-4">
+				<div class="flex space-x-2">
+					<button
+						on:click={() => switchTab('core')}
+						class={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+							activeTab === 'core'
+								? 'bg-indigo-600 text-white shadow'
+								: 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+						}`}
 					>
+						Core Members
+					</button>
+					<button
+						on:click={() => switchTab('external')}
+						class={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+							activeTab === 'external'
+								? 'bg-indigo-600 text-white shadow'
+								: 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+						}`}
+					>
+						External Members
+					</button>
 				</div>
 
+				<!-- Search -->
 				<div class="relative w-full sm:w-80">
 					<Search class="absolute top-2.5 left-3 h-4 w-4 text-gray-400" />
 					<input
 						type="text"
 						bind:value={searchQuery}
 						on:input={handleSearch}
-						placeholder="Search by name, or ID number"
+						placeholder={`Search ${activeTab === 'core' ? 'Core' : 'External'} Members`}
 						class="w-full rounded-lg border border-gray-200 py-2 pr-10 pl-9 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
 					/>
 					{#if searchQuery}
@@ -195,57 +217,33 @@
 				</div>
 			</div>
 
-			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{#if filteredMembers.length > 0}
-					{#each filteredMembers as m (m.IdNumber)}
-						<a
-							href={`/members/${m.IdNumber}`}
-							class="flex cursor-pointer flex-col rounded-2xl border border-gray-100 bg-white p-4 transition hover:shadow-md"
-						>
-							<div class="flex items-center gap-3">
-								<User class="h-12 w-12 rounded-full bg-gray-100 p-2 text-gray-400" />
-								<div>
-									<p class="font-semibold text-gray-800">{m.FullName}</p>
-									<p class="text-sm text-gray-500">{m.Designation}</p>
-								</div>
-							</div>
-
-							<div class="mt-3 space-y-1 text-sm text-gray-600">
-								<p><strong>ID:</strong> {m.IdNumber}</p>
-								<p><strong>Dept:</strong> {m.Department}</p>
-								<p><strong>Issued:</strong> {fmt(m.DateOfIssue)}</p>
-								<p><strong>Expiry:</strong> {fmt(m.DateOfExpiry)}</p>
-							</div>
-
-							<div class="mt-3">
-								<span
-									class={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${getActiveBadge(
-										m.IsActive
-									)}`}
-								>
-									{#if m.IsActive}
-										<CheckCircle class="h-4 w-4" /> Active
-									{:else}
-										<XCircle class="h-4 w-4" /> Inactive
-									{/if}
-								</span>
-							</div>
-						</a>
-					{/each}
+			<!-- Members Grid -->
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 overflow-y-auto max-h-[70vh] p-1">
+				{#if activeTab === 'core'}
+					{#if filteredCore.length > 0}
+						{#each filteredCore as m (m.IdNumber)}
+							<MemberCard {m} {getActiveBadge} {fmt} />
+						{/each}
+					{:else}
+						<p class="text-sm text-gray-500 col-span-full text-center py-6">
+							No core members found.
+						</p>
+					{/if}
 				{:else}
-					<p class="text-sm text-gray-500">No members found matching “{searchQuery}”.</p>
+					{#if filteredExternal.length > 0}
+						{#each filteredExternal as m (m.IdNumber)}
+							<MemberCard {m} {getActiveBadge} {fmt} />
+						{/each}
+					{:else}
+						<p class="text-sm text-gray-500 col-span-full text-center py-6">
+							No external members found.
+						</p>
+					{/if}
 				{/if}
 			</div>
 		</div>
 	</section>
-{:else}
-	<div class="p-6">
-		<p class="text-gray-500">Project data not available.</p>
-	</div>
 {/if}
 
-<style>
-	article {
-		min-height: 160px;
-	}
-</style>
+<!-- Member Card Component (inline for simplicity) -->
+
